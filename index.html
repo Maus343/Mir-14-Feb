@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nuestro Primer 14 — Mireya 💜</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ink:#1c1026;
+      --muted:#5b4a6d;
+      --purple:#6A0DAD;
+      --purple2:#8A2BE2;
+      --rose:#ff77c8;
+      --gold:#ffd37a;
+      --shadow: 0 18px 50px rgba(12,6,18,.22);
+      --shadow2: 0 10px 30px rgba(12,6,18,.14);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 900px at 20% 10%, rgba(138,43,226,.18), transparent 55%),
+        radial-gradient(1100px 800px at 80% 20%, rgba(255,119,200,.12), transparent 60%),
+        radial-gradient(900px 700px at 60% 95%, rgba(106,13,173,.16), transparent 60%),
+        linear-gradient(180deg, #07030c 0%, #14081c 55%, #07030c 100%);
+      overflow-x:hidden;
+    }
+
+    /* Stars */
+    .stars, .stars:before, .stars:after{
+      content:"";
+      position:fixed; inset:0;
+      background-image:
+        radial-gradient(2px 2px at 15% 20%, rgba(255,255,255,.35), transparent 55%),
+        radial-gradient(1.5px 1.5px at 35% 70%, rgba(255,255,255,.28), transparent 55%),
+        radial-gradient(1.2px 1.2px at 72% 35%, rgba(255,255,255,.24), transparent 55%),
+        radial-gradient(1.8px 1.8px at 85% 75%, rgba(255,255,255,.30), transparent 55%),
+        radial-gradient(1.1px 1.1px at 55% 15%, rgba(255,255,255,.18), transparent 55%),
+        radial-gradient(1.7px 1.7px at 10% 85%, rgba(255,255,255,.22), transparent 55%),
+        radial-gradient(1.2px 1.2px at 62% 62%, rgba(255,255,255,.18), transparent 55%);
+      opacity:.65;
+      pointer-events:none;
+      z-index:-2;
+      animation: twinkle 6s ease-in-out infinite;
+    }
+    .stars:before{opacity:.45; filter: blur(.2px); animation-duration: 8s;}
+    .stars:after{opacity:.35; filter: blur(.5px); animation-duration: 10s;}
+    @keyframes twinkle{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,6,16,.86), rgba(10,6,16,.35));
+      border-bottom:1px solid rgba(217,194,255,.12);
+    }
+    .topbar-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding:12px 16px;
+      display:flex; align-items:center; gap:12px; justify-content:space-between;
+    }
+    .brand{display:flex; align-items:center; gap:10px; color:#f4eaff; text-decoration:none;}
+    .brand .dot{
+      width:12px;height:12px;border-radius:50%;
+      background: linear-gradient(135deg, var(--purple2), var(--rose));
+      box-shadow: 0 0 0 6px rgba(138,43,226,.14);
+    }
+    .brand strong{font-family:"Playfair Display", serif; letter-spacing:.2px; font-size:15px;}
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      padding:10px 12px;
+      border-radius:999px;
+      color:#f7f1ff;
+      background: rgba(217,194,255,.12);
+      border: 1px solid rgba(217,194,255,.16);
+      box-shadow: 0 10px 20px rgba(0,0,0,.12);
+      font-weight:950;
+      font-size:13px;
+      display:inline-flex; gap:8px; align-items:center;
+      transition:.2s transform, .2s background;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(217,194,255,.16);}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(106,13,173,.95), rgba(138,43,226,.95));
+      border-color: rgba(217,194,255,.22);
+    }
+    .btn.soft{
+      background: rgba(255,255,255,.08);
+      border-color: rgba(217,194,255,.14);
+    }
+
+    .progress-wrap{height:3px; background: rgba(217,194,255,.10);}
+    .progress-bar{height:100%; width:0%; background: linear-gradient(90deg, var(--purple2), var(--rose));}
+
+    /* Layout */
+    .wrap{max-width:1180px; margin:0 auto; padding:22px 16px 100px;}
+    .hero{
+      display:grid; grid-template-columns: 1.15fr .85fr;
+      gap:18px; align-items:stretch; margin-top:14px;
+    }
+    @media (max-width: 980px){ .hero{grid-template-columns: 1fr;} }
+
+    .card{
+      background: linear-gradient(180deg, rgba(251,247,255,.97), rgba(244,234,255,.97));
+      border: 1px solid rgba(217,194,255,.55);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden; position:relative;
+    }
+    .card.soft{box-shadow: var(--shadow2);}
+    .card-inner{padding:22px 20px;}
+
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center; flex-wrap:wrap;
+      color: var(--muted); font-size:13px; font-weight:950; letter-spacing:.2px;
+    }
+    .kicker .pill{
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(106,13,173,.18);
+      background: rgba(106,13,173,.06);
+      color: rgba(106,13,173,.95);
+    }
+
+    h1,h2,h3{
+      margin: 10px 0 10px;
+      font-family:"Playfair Display", serif;
+      letter-spacing:.2px;
+    }
+    h1{font-size:44px; line-height:1.04; color:#1b0d2b;}
+    @media (max-width: 520px){ h1{font-size:36px;} }
+    .subtitle{color: var(--muted); font-size:15px; line-height:1.85; margin-top:10px;}
+    .small{color:var(--muted); font-weight:850; font-size:12px; line-height:1.6;}
+
+    .toc{display:flex; flex-direction:column; gap:10px; margin-top:12px;}
+    .toc a{
+      text-decoration:none; color:#2b163e; font-weight:950;
+      padding:10px 12px; border-radius:14px;
+      border:1px solid rgba(106,13,173,.14);
+      background: rgba(255,255,255,.35);
+      transition:.18s transform, .18s background;
+    }
+    .toc a:hover{transform: translateY(-1px); background: rgba(255,255,255,.55);}
+    .toc small{color: var(--muted); font-weight:900; margin-left:6px;}
+
+    /* Gerbera SVG */
+    .flower{position:absolute; right:-40px; top:-30px; width:220px; opacity:.24; transform: rotate(10deg); pointer-events:none;}
+    .flower2{position:absolute; left:-50px; bottom:-60px; width:260px; opacity:.18; transform: rotate(-10deg); pointer-events:none;}
+
+    section.chapter{margin-top:18px; padding-top:6px;}
+    .chapter .head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      padding:16px 18px 0; flex-wrap:wrap;
+    }
+    .chapter .tag{
+      font-weight:950; color: rgba(106,13,173,.9);
+      background: rgba(106,13,173,.08);
+      border:1px solid rgba(106,13,173,.16);
+      padding:6px 10px; border-radius:999px; font-size:12px;
+    }
+    .chapter .content{padding: 14px 18px 18px;}
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(106,13,173,.22), transparent);
+      margin: 10px 0 14px;
+    }
+
+    p{margin: 0 0 14px; line-height:1.98; font-size:15px; color:#231231;}
+    .dropcap::first-letter{
+      font-family:"Playfair Display", serif;
+      font-weight:700;
+      float:left;
+      font-size:52px;
+      line-height:1;
+      margin: 6px 10px 0 0;
+      color: rgba(106,13,173,.92);
+    }
+
+    .callout{
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(106,13,173,.14);
+      border-radius:18px;
+      padding:14px 14px;
+      box-shadow: 0 10px 20px rgba(12,6,18,.06);
+      margin: 12px 0;
+    }
+
+    /* Poems */
+    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;}
+    @media (max-width: 980px){.grid{grid-template-columns: repeat(2,1fr);}}
+    @media (max-width: 640px){.grid{grid-template-columns: 1fr;}}
+    .poem{
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(106,13,173,.14);
+      border-radius:18px;
+      padding:14px 14px;
+      box-shadow: 0 12px 24px rgba(12,6,18,.08);
+      position:relative; overflow:hidden;
+    }
+    .poem h3{margin:0 0 6px; font-size:18px;}
+    .poem .meta{color:var(--muted); font-weight:950; font-size:12px; margin-bottom:10px;}
+    .poem .lines{white-space:pre-line; color:#2a163c; line-height:1.95;}
+    .poem::after{
+      content:""; position:absolute; inset:-60px -80px auto auto;
+      width:180px; height:180px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(138,43,226,.18), transparent 55%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+
+    /* Emotion */
+    .emotion-grid{display:grid; grid-template-columns: repeat(4, 1fr); gap:10px;}
+    @media (max-width: 980px){.emotion-grid{grid-template-columns: repeat(2,1fr);}}
+    .emotion{
+      border-radius:18px; padding:12px 12px;
+      border: 1px solid rgba(106,13,173,.14);
+      background: rgba(255,255,255,.5);
+      cursor:pointer; transition:.2s transform;
+      min-height:82px; display:flex; flex-direction:column; justify-content:center; gap:6px;
+      position:relative; overflow:hidden;
+    }
+    .emotion:hover{transform: translateY(-2px);}
+    .emotion .name{font-weight:950; color:#2b163e}
+    .emotion .hint{font-size:12px; color:var(--muted); font-weight:900}
+    .emotion .text{display:none; margin-top:10px; color:#2a163c}
+    .emotion.open .text{display:block}
+
+    /* Letters */
+    .letters{display:grid; grid-template-columns: repeat(2, 1fr); gap:12px;}
+    @media (max-width: 900px){.letters{grid-template-columns:1fr;}}
+    details.letter{
+      background: rgba(255,255,255,.60);
+      border:1px solid rgba(106,13,173,.14);
+      border-radius:18px;
+      padding:12px 14px;
+      box-shadow: 0 10px 18px rgba(12,6,18,.07);
+    }
+    details.letter summary{
+      cursor:pointer; list-style:none; font-weight:950; color:#2b163e;
+      display:flex; align-items:center; justify-content:space-between; gap:12px; user-select:none;
+    }
+    details.letter summary::-webkit-details-marker{display:none;}
+    .seal{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,119,200,.22);
+      background: rgba(255,119,200,.10);
+      color: rgba(106,13,173,.95);
+      font-weight:950;
+      white-space:nowrap;
+    }
+
+    /* Jars */
+    .jar-grid{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px;}
+    @media (max-width: 1100px){.jar-grid{grid-template-columns: repeat(2,1fr);}}
+    @media (max-width: 640px){.jar-grid{grid-template-columns: 1fr;}}
+    .jar{
+      background: rgba(255,255,255,.58);
+      border:1px solid rgba(106,13,173,.14);
+      border-radius:18px;
+      padding:14px 14px;
+      box-shadow: 0 12px 24px rgba(12,6,18,.08);
+    }
+    .jar h3{margin:0 0 6px; font-size:18px;}
+    .jar p{margin:0 0 10px; color:var(--muted); font-weight:950}
+    .jar .pillrow{display:flex; gap:8px; flex-wrap:wrap;}
+    .mini{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(106,13,173,.14);
+      background: rgba(106,13,173,.06);
+      font-weight:950; cursor:pointer; user-select:none;
+    }
+    .jar .out{
+      margin-top:10px;
+      border-top:1px solid rgba(106,13,173,.12);
+      padding-top:10px;
+      color:#2a163c;
+      line-height:1.95;
+      min-height:66px;
+      font-weight:650;
+    }
+
+    /* Garden */
+    .garden{display:grid; grid-template-columns: 1fr 1fr; gap:12px; align-items:stretch;}
+    @media (max-width: 900px){.garden{grid-template-columns:1fr;}}
+    .plot{
+      background: rgba(255,255,255,.58);
+      border:1px solid rgba(106,13,173,.14);
+      border-radius:18px;
+      padding:14px 14px;
+      box-shadow: 0 12px 24px rgba(12,6,18,.08);
+      position:relative; overflow:hidden;
+    }
+    .seed{
+      width:92px; height:92px; border-radius:22px;
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg, rgba(138,43,226,.18), rgba(255,119,200,.12));
+      border:1px solid rgba(106,13,173,.16);
+      font-size:34px;
+      cursor:pointer; user-select:none;
+      transition:.2s transform;
+    }
+    .seed:hover{transform: translateY(-2px);}
+    .sprout{
+      font-size:44px;
+      opacity:0;
+      transform: translateY(10px) scale(.9);
+      transition: .45s ease;
+    }
+    .sprout.show{opacity:1; transform: translateY(0) scale(1);}
+
+    .list{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 900px){.list{grid-template-columns:1fr;}}
+    .item{
+      background: rgba(255,255,255,.58);
+      border:1px solid rgba(106,13,173,.14);
+      border-radius:18px;
+      padding:12px 12px;
+      box-shadow: 0 10px 18px rgba(12,6,18,.06);
+    }
+    .item b{display:block; margin-bottom:6px; color:#2a163c}
+
+    /* Toast */
+    .toast{
+      position:fixed; left:50%; bottom:18px;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(15,8,24,.86);
+      border:1px solid rgba(217,194,255,.16);
+      color:#f4eaff;
+      padding:12px 14px;
+      border-radius:16px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.25);
+      opacity:0; pointer-events:none;
+      transition:.35s ease;
+      z-index:80;
+      max-width: 92vw;
+      font-weight:950;
+    }
+    .toast.show{opacity:1; transform: translateX(-50%) translateY(0);}
+
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center; justify-content:center;
+      z-index:200;
+      padding:16px;
+    }
+    .modal.open{display:flex;}
+    .modal .panel{
+      width:min(760px, 96vw);
+      background: linear-gradient(180deg, rgba(251,247,255,.98), rgba(244,234,255,.98));
+      border:1px solid rgba(217,194,255,.55);
+      border-radius:22px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .modal .panel .top{
+      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(106,13,173,.12);
+    }
+    .modal .panel .top b{font-family:"Playfair Display", serif; font-size:18px; color:#2b163e}
+    .modal .panel .body{padding:14px 16px;}
+    .modal .panel .body pre{
+      margin:0;
+      white-space:pre-wrap;
+      line-height:1.95;
+      color:#2a163c;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Night mode */
+    body.night{
+      background:
+        radial-gradient(1200px 900px at 20% 10%, rgba(138,43,226,.16), transparent 55%),
+        radial-gradient(1100px 800px at 80% 20%, rgba(255,119,200,.09), transparent 60%),
+        linear-gradient(180deg, #05020a 0%, #0b0610 55%, #05020a 100%);
+    }
+    body.night .card, body.night .modal .panel{
+      background: linear-gradient(180deg, rgba(20,12,30,.88), rgba(15,8,24,.88));
+      border-color: rgba(217,194,255,.16);
+    }
+    body.night p, body.night .toc a, body.night h1, body.night h2, body.night h3,
+    body.night .chapter .tag, body.night .kicker, body.night .subtitle, body.night .small{
+      color:#f1e9ff !important;
+    }
+    body.night .subtitle, body.night .small{color: rgba(241,233,255,.84) !important;}
+    body.night .toc a{background: rgba(255,255,255,.06); border-color: rgba(217,194,255,.12);}
+    body.night .poem, body.night .emotion, body.night details.letter,
+    body.night .jar, body.night .plot, body.night .item, body.night .callout{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(217,194,255,.12);
+    }
+    body.night .modal .panel .top{border-bottom-color: rgba(217,194,255,.12);}
+    body.night .modal .panel .top b, body.night .modal .panel .body pre{color:#f1e9ff;}
+
+    @media print{
+      body{background:white !important;}
+      .stars, .topbar, .progress-wrap, .toast, .modal{display:none !important;}
+      .wrap{max-width: 900px;}
+      .card{box-shadow:none !important;}
+      .btn{display:none !important;}
+      a{color:black; text-decoration:none;}
+      section.chapter{break-inside:avoid;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top"><span class="dot"></span><strong>Nuestro Primer 14 — Mireya</strong></a>
+      <div class="actions">
+        <button class="btn soft" id="toggleNight" type="button">🌙 Modo noche</button>
+        <button class="btn" id="openAllLetters" type="button">💌 Abrir cartas</button>
+        <button class="btn primary" id="randomPoem" type="button">✨ Dame un poema</button>
+        <button class="btn primary" id="openGift" type="button">🎁 Mensaje sorpresa</button>
+        <button class="btn primary" id="printPdf" type="button">🖨️ Guardar como PDF</button>
+      </div>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="progress"></div></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="panel">
+      <div class="top">
+        <b id="modalTitle">Para ti, Mireya 💜</b>
+        <button class="btn" id="closeModal" type="button">Cerrar</button>
+      </div>
+      <div class="body">
+        <pre id="modalText"></pre>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap" id="top">
+    <div class="hero">
+      <div class="card">
+        <!-- Gerbera -->
+        <svg class="flower" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <radialGradient id="g1" cx="30%" cy="30%">
+              <stop offset="0" stop-color="#8A2BE2" stop-opacity="0.95"/>
+              <stop offset="1" stop-color="#6A0DAD" stop-opacity="0.2"/>
+            </radialGradient>
+          </defs>
+          <g transform="translate(100 100)">
+            <g fill="url(#g1)">
+              <ellipse rx="18" ry="52" transform="rotate(0) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(30) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(60) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(90) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(120) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(150) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(180) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(210) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(240) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(270) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(300) translate(0,-58)"/>
+              <ellipse rx="18" ry="52" transform="rotate(330) translate(0,-58)"/>
+            </g>
+            <circle r="26" fill="#ffd37a" opacity="0.92"/>
+            <circle r="14" fill="#ffb84d" opacity="0.95"/>
+          </g>
+        </svg>
+
+        <div class="card-inner">
+          <div class="kicker">
+            <span class="pill">Versión Final • Larga • Poética</span>
+            <span>💜 Morado • 🌸 Gerberas • 🎮 Grow a Garden • 🎵 Home</span>
+          </div>
+
+          <h1>Un libro hecho con amor para ti, Mireya 💜</h1>
+
+          <p class="subtitle">
+            Mi amor… este libro no nació rápido. Nació como nacen las cosas que importan:
+            con calma. Con esa calma bonita de quien se sienta a escribir porque el corazón lo pide.
+            Nació de una idea simple: encontrarte a las doce con algo que se sintiera como abrazo,
+            aunque estemos lejos.
+          </p>
+
+          <p class="subtitle">
+            Si estás leyendo esto, mi princesita, deja que te guíe:
+            ve despacio. No corras. Este libro está hecho para que lo habites,
+            para que regreses cuando lo necesites, para que sientas sin duda
+            que yo estoy contigo.
+          </p>
+
+          <div class="callout">
+            <p style="margin:0">
+              <b>Cómo usar este libro (guiadito):</b><br>
+              • Si tu corazón está suave: abre una carta.<br>
+              • Si necesitas algo rápido: toca “✨ Dame un poema”.<br>
+              • Si te pesa el día: entra a “Léeme cuando…”.<br>
+              • Si el mundo te aprieta: ve al “Rincón de paz morada”.<br>
+              • Si estás bajita: abre “🎁 Mensaje sorpresa”.
+            </p>
+          </div>
+
+          <p class="small">
+            (Este libro está hecho para volver. No es de una sola leída. Es de compañía.)
+          </p>
+        </div>
+
+        <svg class="flower2" viewBox="0 0 220 220" aria-hidden="true">
+          <defs>
+            <radialGradient id="g2" cx="30%" cy="30%">
+              <stop offset="0" stop-color="#ff77c8" stop-opacity="0.55"/>
+              <stop offset="1" stop-color="#8A2BE2" stop-opacity="0.12"/>
+            </radialGradient>
+          </defs>
+          <g transform="translate(110 110)">
+            <g fill="url(#g2)">
+              <ellipse rx="20" ry="60" transform="rotate(15) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(45) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(75) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(105) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(135) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(165) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(195) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(225) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(255) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(285) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(315) translate(0,-62)"/>
+              <ellipse rx="20" ry="60" transform="rotate(345) translate(0,-62)"/>
+            </g>
+            <circle r="28" fill="#ffd37a" opacity="0.70"/>
+            <circle r="13" fill="#ffb84d" opacity="0.8"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card soft">
+        <div class="card-inner">
+          <h2 style="margin-top:0">Índice ✨</h2>
+          <p class="subtitle" style="margin-top:0">
+            Este libro tiene muchas habitaciones… y todas te llevan a lo mismo:
+            a que te sientas amada.
+          </p>
+
+          <nav class="toc">
+            <a href="#prologo">Prólogo <small>— “este libro existe por ti”</small></a>
+            <a href="#ritual">Ritual de medianoche <small>— a las 12</small></a>
+            <a href="#historia">Nuestra historia <small>— Grow a Garden</small></a>
+            <a href="#home">Home <small>— “hogar eres tú”</small></a>
+            <a href="#morado">Morado & Gerberas <small>— tu esencia</small></a>
+            <a href="#manual">Manual de amor <small>— cómo cuidarte</small></a>
+            <a href="#poemario">Poemario <small>— lee uno cuando lo necesites</small></a>
+            <a href="#leeme">Léeme cuando… <small>— por emociones</small></a>
+            <a href="#cartas">Cartas <small>— sobres que abrazan</small></a>
+            <a href="#frascos">Frascos mágicos <small>— palabras que caen</small></a>
+            <a href="#jardin">Nuestro jardín <small>— planta un mensaje</small></a>
+            <a href="#promesas">Promesas bonitas <small>— amor seguro</small></a>
+            <a href="#orgullo">Mi orgullo <small>— internista</small></a>
+            <a href="#epilogo">Epílogo <small>— siempre tú</small></a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <section class="chapter card" id="prologo">
+      <div class="head"><h2>Prólogo</h2><span class="tag">Este libro existe por ti 💜</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mireya, mi amor… si esto fuera una caja, adentro tendría un abrazo.
+          Si esto fuera una carta, sería demasiado larga, porque mi corazón no sabe resumirte.
+          Por eso lo hice libro. Para que lo abras como quien abre una ventana en un cuarto cerrado:
+          para que entre aire, para que entre calma, para que entre amor.
+        </p>
+        <p>
+          Quiero que sepas algo desde el principio: este libro está hecho con tiempo.
+          Con esa clase de tiempo que uno solo le regala a lo que de verdad le importa.
+          Y aunque estemos a distancia, yo busco formas reales de estar:
+          en lo que te digo, en lo que te escribo, en los detalles que te dejo.
+        </p>
+        <p>
+          Y si un día estás triste, si un día te sientes sola, si un día el mundo te pesa…
+          prométeme que vas a volver aquí. No para obligarte a estar bien.
+          Sino para recordarte que eres amada. Que eres importante.
+          Que hay alguien que piensa en ti con ternura.
+        </p>
+        <div class="callout"><p style="margin:0"><b>Nota del corazón:</b> si alguna parte te hace llorar bonito, no te preocupes. Llorar también es una forma de soltar lo pesado. Y aquí… lo pesado no se queda.</p></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="ritual">
+      <div class="head"><h2>Ritual de medianoche</h2><span class="tag">A las 12 ⏰</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mi princesita… si estás leyendo esto cerca de medianoche, imagíname cerquita.
+          Imagíname poniéndote un beso en la frente, despacito, como si el tiempo se hiciera suave.
+          Yo quería que nuestro primer 14 de febrero tuviera una escena bonita,
+          aunque no sea en el mismo lugar.
+        </p>
+        <p>
+          Así que este es el ritual:
+          respira profundo una vez. Luego otra.
+          Y repite en tu mente, bajito: “estoy aquí, estoy a salvo, soy amada”.
+          Y después, si quieres, abre una carta.
+          O pide un poema.
+          O solo quédate leyendo como quien se abraza.
+        </p>
+        <div class="callout"><p style="margin:0"><b>Detalle:</b> si abres este libro entre las 00:00 y las 00:15, te aparece un mensaje especial. (Porque yo quería dejarte una “luz” exacta a esa hora.)</p></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="historia">
+      <div class="head"><h2>Nuestra historia</h2><span class="tag">Grow a Garden 🎮</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Nos conocimos en un juego llamado <b>Grow a Garden</b>.
+          Y te juro que a veces me quedo pensando en lo raro y bonito que es eso:
+          como si el destino hubiera escondido algo real en un lugar simple.
+          Como si, entre semillas y caminos, el universo nos hubiera dicho bajito: “ahí… ahí es”.
+        </p>
+        <p>
+          Y luego pasó lo mejor: empezaste a volverte parte de mis días.
+          De pronto yo quería contarte todo —lo que veía, lo que hacía, lo que sentía—,
+          porque me encanta la idea de que mi vida te encuentre en detalles.
+          Me encanta compartirte mi mundo, no por costumbre… sino por amor.
+        </p>
+        <p>
+          Lo nuestro se siente como jardín:
+          se riega con paciencia, se cuida con cariño, y florece incluso en la distancia.
+          Y si alguna vez dudas, vuelve aquí y acuérdate:
+          lo que nació contigo… se quedó.
+        </p>
+      </div>
+    </section>
+
+    <section class="chapter card" id="home">
+      <div class="head"><h2>Home</h2><span class="tag">Hogar eres tú 🎵</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Nuestra canción es <b>“Home”</b>. Y para mí no es “solo” una canción.
+          Es una forma de decirte algo que cuesta explicar:
+          hogar no es una casa, ni una calle, ni una ciudad.
+          Hogar es donde el corazón deja de pelear.
+          Y a mí, Mireya… el corazón se me calma contigo.
+        </p>
+        <p>
+          Quiero que cada vez que escuches esa canción, recuerdes esto:
+          yo te pienso con ternura. Te cuido con palabras suaves.
+          Y aunque estemos lejos, mi amor no se queda quieto:
+          mi amor camina hasta ti.
+        </p>
+        <div class="callout"><p style="margin:0"><b>Guía:</b> cuando escuches “Home”, cierra los ojos 10 segundos y piensa “me están amando con verdad”. Porque eso es lo que pasa contigo.</p></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="morado">
+      <div class="head"><h2>Morado & Gerberas</h2><span class="tag">Tu esencia 🌸</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Tú amas el morado… y yo empecé a amar el morado porque me recuerda a ti.
+          Me recuerda a lo profundo, a lo elegante, a lo bonito que no necesita gritar.
+          Y tú eres así: hermosa sin esfuerzo, fuerte sin hacer ruido,
+          y con un corazón que se nota incluso en lo que no dices.
+        </p>
+        <p>
+          Y las gerberas… ay, las gerberas. Son flores que parecen sonreír.
+          Para mí, una gerbera es como un “estoy aquí” en forma de flor.
+          Si yo pudiera, te llenaría de gerberas moradas para recordarte algo:
+          <b>tú floreces incluso cuando estás cansada</b>.
+        </p>
+        <p>
+          Cada vez que veas una, quiero que escuches mi voz en tu cabeza diciendo:
+          “mi princesita… eres preciosa, eres capaz, y yo estoy orgulloso de ti”.
+        </p>
+      </div>
+    </section>
+
+    <section class="chapter card" id="manual">
+      <div class="head"><h2>Manual de amor</h2><span class="tag">Cómo cuidarte ✨</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mi amor… esta sección es una guía. No para “arreglarte”, porque tú no estás rota.
+          Es una guía para esos días donde todo se siente confuso.
+          Para que no tengas que pensar demasiado. Para que tengas una ruta suave.
+        </p>
+        <div class="list">
+          <div class="item"><b>Si tu día se siente pesado</b>Hazlo pequeño: agua, respiración, comida. No te pidas perfección. Solo presencia. Y si puedes, vuelve a un poema.</div>
+          <div class="item"><b>Si tu mente no se calla</b>Respira 4–4–6. Luego una mano en el pecho: “estoy a salvo, esto pasa, me estoy cuidando”.</div>
+          <div class="item"><b>Si sientes inseguridad</b>No te discutas con dureza. Vuelve a ti con cariño. Abre “Léeme cuando… Insegura”.</div>
+          <div class="item"><b>Si te sientes sola</b>Abre una carta. Repite: “la distancia no es ausencia cuando hay amor real”.</div>
+        </div>
+        <div class="callout"><p style="margin:0"><b>Regla favorita:</b> en días difíciles, sé suave contigo. Tú mereces amor incluso cuando no te sientes “en tu mejor versión”.</p></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="poemario">
+      <div class="head"><h2>Poemario</h2><span class="tag">Lee uno cuando lo necesites 📖</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mi amor… esta parte es un poemario escrito solo para ti.
+          Te lo dejo como quien deja una cobijita doblada en la cama:
+          para que cuando tengas frío del alma, sepas dónde encontrar calor.
+        </p>
+        <p>
+          No los leas todos de golpe. Este poemario es para acompañarte por temporadas.
+          <b>Elige uno cuando lo necesites</b>. Si estás triste, toma uno. Si estás feliz, toma uno.
+          Si te sientes insegura, toma uno. Si me extrañas, toma uno.
+        </p>
+        <div class="callout"><p style="margin:0"><b>Guía:</b> si no sabes cuál leer, toca “✨ Dame un poema”. Y deja que el libro te escoja.</p></div>
+        <div class="grid" id="poemGrid" style="margin-top:10px"></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="leeme">
+      <div class="head"><h2>Léeme cuando…</h2><span class="tag">Emociones & colores 🎨</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mireya… esta sección es como un mapa para tus días.
+          <b>Toca una emoción</b> y deja que estas palabras te acompañen.
+          Como si yo te tomara la mano y te dijera: “tranquila, mi amor… aquí estoy”.
+        </p>
+        <div class="emotion-grid" style="margin-top:10px" id="emotionGrid"></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="cartas">
+      <div class="head"><h2>Cartas</h2><span class="tag">Sobres que abrazan 💌</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mi niña… aquí guardé cartas como si fueran amuletos.
+          Cartas para cuando la distancia se sienta larga,
+          para cuando el día se ponga difícil,
+          para cuando quieras sentirte querida sin tener que explicarlo.
+        </p>
+        <div class="letters" id="letters"></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="frascos">
+      <div class="head"><h2>Frascos mágicos</h2><span class="tag">Palabras que caen ✨</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Esta parte es para cuando no quieres leer mucho, pero sí necesitas sentir algo bonito.
+          Abres un frasco… y cae un mensaje.
+          Como si el universo te dejara una nota en morado.
+        </p>
+
+        <div class="jar-grid">
+          <div class="jar">
+            <h3>Motivos 💜</h3>
+            <p>Razones por las que te amo, una por una.</p>
+            <div class="pillrow">
+              <span class="mini" data-jar="motivos">Abrir</span>
+              <span class="mini" data-jar="motivos">Otra</span>
+            </div>
+            <div class="out" id="out-motivos"></div>
+          </div>
+
+          <div class="jar">
+            <h3>Calma 🤍</h3>
+            <p>Para ansiedad, presión, días pesados.</p>
+            <div class="pillrow">
+              <span class="mini" data-jar="calma">Abrir</span>
+              <span class="mini" data-jar="calma">Otra</span>
+            </div>
+            <div class="out" id="out-calma"></div>
+          </div>
+
+          <div class="jar">
+            <h3>Orgullo 🩺</h3>
+            <p>Para tu sueño: doctora internista.</p>
+            <div class="pillrow">
+              <span class="mini" data-jar="orgullo">Abrir</span>
+              <span class="mini" data-jar="orgullo">Otra</span>
+            </div>
+            <div class="out" id="out-orgullo"></div>
+          </div>
+
+          <div class="jar">
+            <h3>Sonrisas 🌸</h3>
+            <p>Mensajes para levantarte bonito.</p>
+            <div class="pillrow">
+              <span class="mini" data-jar="sonrisas">Abrir</span>
+              <span class="mini" data-jar="sonrisas">Otra</span>
+            </div>
+            <div class="out" id="out-sonrisas"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="jardin">
+      <div class="head"><h2>Nuestro jardín</h2><span class="tag">Planta un mensaje 🌱</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mi amor… un guiño a donde empezó todo: Grow a Garden.
+          Aquí plantamos palabras bonitas.
+          Toca la semilla y mira lo que florece.
+        </p>
+
+        <div class="garden" style="margin-top:10px">
+          <div class="plot">
+            <h3 style="margin-top:0">Planta una semilla</h3>
+            <p class="small">Toca la semilla y deja que aparezca algo bonito. Puedes hacerlo varias veces.</p>
+            <div style="display:flex; gap:12px; align-items:center;">
+              <div class="seed" id="seedBtn" title="Plantar">🌰</div>
+              <div>
+                <div class="sprout" id="sprout">🌸</div>
+                <div id="gardenMsg" style="margin-top:6px; font-weight:950; color:#2a163c;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plot">
+            <h3 style="margin-top:0">Rincón de paz morada</h3>
+            <p class="small">
+              Si estás abrumada: inhala 4, sostén 4, exhala 6. Repite 3 veces.
+              Luego lee esto despacio.
+            </p>
+            <p>
+              No estás fallando por sentir. No te estás “quedando atrás” por cansarte.
+              Tú eres humana. Y eres hermosa.
+              Si hoy todo pesa, mi princesita… hoy no se trata de ganar.
+              Hoy se trata de cuidarte. Y yo te cuido con palabras.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="promesas">
+      <div class="head"><h2>Promesas bonitas</h2><span class="tag">Amor seguro 🫶</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mireya… esta parte la escribí como quien amarra un listón para que no se escape lo bonito.
+          Son promesas reales: de cuidado, de respeto, de ternura.
+          Porque yo quiero que el amor, contigo, se sienta seguro.
+        </p>
+
+        <div class="list">
+          <div class="item"><b>Te prometo paciencia</b>Cuando estés sensible, cansada, seria: no voy a hacerte sentir “demasiado”. Voy a acompañarte.</div>
+          <div class="item"><b>Te prometo suavidad</b>No voy a amarte con prisa. Voy a amarte con calma. Con palabras que cuidan.</div>
+          <div class="item"><b>Te prometo orgullo</b>Voy a admirarte en tu proceso. En tus esfuerzos. En lo que construyes incluso cuando nadie lo ve.</div>
+          <div class="item"><b>Te prometo elección</b>Quiero que mi amor sea decisión: elegirte una y otra vez, desde el respeto.</div>
+        </div>
+
+        <div class="callout"><p style="margin:0"><b>Guía:</b> si algún día dudas, vuelve aquí. Estas promesas existen para recordarte que lo nuestro se cuida.</p></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="orgullo">
+      <div class="head"><h2>Mi orgullo</h2><span class="tag">Internista 🩺</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mireya… tú quieres ser doctora internista y yo no sé si dimensionas lo que eso dice de ti.
+          Dice que tu corazón quiere ayudar, que tu mente quiere aprender,
+          y que tu alma está hecha de servicio.
+          Y a mí eso… me enamora y me inspira.
+        </p>
+        <p>
+          Habrá días pesados. Habrá cansancio. Habrá dudas.
+          Pero tú tienes algo enorme: determinación.
+          Y yo voy a estar contigo en el proceso:
+          celebrando avances chiquitos, sosteniéndote cuando la presión apriete,
+          recordándote que tú sí puedes.
+        </p>
+        <div class="callout"><p style="margin:0"><b>Para cuando te sientas insuficiente:</b> hoy no tienes que “ser perfecta”. Solo tienes que seguir. Y yo estoy orgulloso de ti por intentarlo.</p></div>
+      </div>
+    </section>
+
+    <section class="chapter card" id="epilogo">
+      <div class="head"><h2>Epílogo</h2><span class="tag">Siempre tú 💜</span></div>
+      <div class="content">
+        <div class="divider"></div>
+        <p class="dropcap">
+          Mireya… si este libro pudiera hablar, diría lo mismo que mi corazón:
+          que te ama con paciencia, con ternura y con intención.
+          Que no te ama por ratos, ni por costumbre, ni por vacío.
+          Te ama porque sí. Porque te eligió.
+        </p>
+        <p>
+          Feliz primer 14 de febrero, mi princesita.
+          Si hoy estás feliz, yo celebro contigo.
+          Si hoy estás sensible, yo te abrazo.
+          Si hoy solo quieres leer en silencio, yo me quedo aquí, cerquita.
+          Y si un día te olvidas de ti… vuelve a este libro:
+          aquí hay palabras para recordarte lo valiosa que eres.
+        </p>
+        <div class="callout"><p style="margin:0"><b>Última línea (para guardarla):</b> “Mi amor por ti no es un momento… es un lugar”.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const toast = document.getElementById('toast');
+    let toastTimer = null;
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    // Progress
+    const progress = document.getElementById('progress');
+    const updateProgress = () => {
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      progress.style.width = pct.toFixed(2) + '%';
+    };
+    document.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    // Night
+    const toggleNight = document.getElementById('toggleNight');
+    toggleNight.addEventListener('click', () => {
+      document.body.classList.toggle('night');
+      toggleNight.textContent = document.body.classList.contains('night') ? '☀️ Modo día' : '🌙 Modo noche';
+    });
+
+    // Print
+    document.getElementById('printPdf').addEventListener('click', () => window.print());
+
+    // Midnight message
+    (function midnight(){
+      const now = new Date();
+      const h = now.getHours(), m = now.getMinutes();
+      if(h === 0 && m <= 15){
+        showToast("✨ Feliz 14, Mireya… este libro es tu abrazo a las 12 💜");
+      }
+    })();
+
+    // Modal
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    function openModal(title, text){
+      modalTitle.textContent = title;
+      modalText.textContent = text;
+      modal.classList.add('open');
+    }
+    document.getElementById('closeModal').addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('open'); });
+
+    // Poems
+    const poems = [
+      {t:"Tu nombre en mi pecho", m:"Para cuando me extrañes", l:
+`Hay nombres que se dicen y se van,
+pero el tuyo se me queda.
+
+Tu nombre suena a calma,
+a noche tranquila,
+a un “ya llegué” que no necesita puerta.
+
+Si hoy me extrañas,
+pon tu mano en tu pecho,
+respira lento
+y escucha:
+ahí también estoy yo,
+queriéndote.`},
+
+      {t:"Morado", m:"Para tu color favorito", l:
+`Morado no es solo un color.
+Morado es un lugar.
+
+Morado es ese silencio bonito
+donde el corazón descansa.
+Morado es tu mirada
+cuando te pones seria y aún así eres tierna.
+Morado es Mireya
+en mi mente, en mi día, en mi futuro.
+
+Si hoy necesitas paz,
+imagina una luz morada alrededor de ti
+y dentro, mi voz:
+“tranquila, mi amor… aquí estoy”.`},
+
+      {t:"Gerbera", m:"Para cuando te sientas cansada", l:
+`Si un día te sientes apagada,
+no te apures.
+Las flores también descansan.
+
+Tú eres gerbera:
+sonrisa que vuelve,
+color que insiste,
+belleza que florece
+aunque el mundo cambie.
+
+Si hoy te cansas,
+déjame cuidarte con palabras.
+Yo te riego de amor
+hasta que vuelvas a abrirte.`},
+
+      {t:"Home", m:"Para nuestra canción", l:
+`“Home” me enseñó una cosa:
+hogar no es un sitio,
+hogar es una persona.
+
+Y tú, Mireya,
+eres ese lugar donde todo en mí se acomoda.
+Eres el “ya pasó”
+después de un día pesado.
+Eres la paz
+cuando el mundo se pone fuerte.
+
+Si escuchas la canción,
+cierra los ojos.
+Te abrazo en silencio.
+Y me quedo.`},
+
+      {t:"Distancia", m:"Para cuando la distancia duela", l:
+`La distancia es rara.
+A veces se siente como un pasillo largo,
+como una tarde que no termina.
+
+Pero también es prueba:
+prueba de que lo nuestro no depende del lugar,
+sino de la intención.
+
+Yo te amo con intención.
+Te pienso con intención.
+Te cuido con intención.
+
+Aunque estemos lejos,
+mi amor no se queda quieto:
+mi amor camina hacia ti.`},
+
+      {t:"Internista", m:"Para tu sueño", l:
+`Mi amor,
+tu sueño no es pequeño.
+Tu sueño es una promesa:
+la promesa de que un día
+vas a sanar con tu mente
+y con tu corazón.
+
+Habrá días pesados.
+Habrá cansancio.
+Habrá dudas.
+Pero tú tienes algo gigante:
+determinación.
+
+Y yo voy a estar aquí,
+orgulloso,
+admirándote,
+amándote,
+mientras te conviertes
+en lo que naciste para ser.`},
+
+      {t:"A las 12", m:"Para nuestro primer 14", l:
+`A las doce
+yo no puedo darte un beso real,
+pero puedo hacer algo parecido:
+dejarte un libro.
+
+Un libro para que lo abras
+cuando te falte abrazo.
+Un libro para que te acuerdes
+que eres mi princesita.
+Un libro para que sientas
+que este amor va en serio.
+
+Feliz primer 14, Mireya.
+Te amo.`},
+
+      {t:"Promesa", m:"Para cuando quieras seguridad", l:
+`Te prometo algo simple
+y por eso es grande:
+no voy a amarte a medias.
+
+Voy a amarte con paciencia.
+Con respeto.
+Con ternura.
+Con intención.
+
+Voy a amarte en lo bonito
+y en lo difícil.
+Voy a quedarme
+donde tu corazón necesite calma.`},
+    ];
+
+    const poemGrid = document.getElementById('poemGrid');
+    poemGrid.innerHTML = poems.map((p,i)=>`
+      <div class="poem">
+        <h3>${i+1}. ${p.t}</h3>
+        <div class="meta">${p.m}</div>
+        <div class="lines">${p.l.replaceAll("<","&lt;").replaceAll(">","&gt;")}</div>
+      </div>
+    `).join("");
+
+    document.getElementById('randomPoem').addEventListener('click', () => {
+      const p = pick(poems);
+      showToast(`✨ Poema para ti: ${p.t} 💜`);
+      document.getElementById('poemario').scrollIntoView({behavior:'smooth', block:'start'});
+      openModal(p.t, p.l);
+    });
+
+    // Emotions
+    const emotions = [
+      {n:"💙 Triste", h:"Cuando el día pese", t:"Mi amor… si hoy estás triste, no te exijas estar bien rápido. Respira. Déjate sentir. Yo no te amo menos por estar bajita, yo te amo completa. Si pudiera, te haría un té, te taparía con una cobija y te diría bajito: descansa, mi princesita. Esto también pasa. Y yo me quedo contigo."},
+      {n:"💛 Feliz", h:"Cuando quieras celebrar", t:"Si hoy estás feliz, yo celebro contigo desde donde esté. Me encanta verte brillar. No guardes tu alegría por miedo: tu felicidad es hermosa. Ríe, presume tu luz, disfruta. Y acuérdate: tu sonrisa es mi lugar favorito."},
+      {n:"💜 En paz", h:"Morado: calma", t:"Si hoy sientes paz, quédate un ratito aquí. La paz también se cuida. Imagínate una luz morada suave rodeándote, como un abrazo de terciopelo. Yo te miro con ternura y pienso: qué bonito que existas, Mireya."},
+      {n:"❤️ Me extrañas", h:"Cuando la distancia duela", t:"Mi amor… si me extrañas, cierra los ojos un momento. Imagina mis manos en tu cara, mis dedos acomodándote el cabello. Te beso la frente. Y te digo: mi niña, estoy aquí. Aunque sea lejos, yo te acompaño. Siempre."},
+      {n:"🤍 Ansiosa", h:"Cuando la mente corra", t:"Respira conmigo: inhala 4, sostén 4, exhala 6. Otra vez. Quédate en el ahora. Lo que sientes no te define, solo está pasando. Y no estás sola. Si hoy te cuesta, yo te presto calma con palabras."},
+      {n:"🩷 Insegura", h:"Cuando te mires duro", t:"Mírate con mis ojos, mi princesita. Yo veo una mujer preciosa, inteligente, capaz. No eres “poco”, no eres “tarde”, no eres “insuficiente”. Eres muchísimo. Y tu belleza también vive en lo que eres por dentro."},
+      {n:"🧡 Cansada", h:"Cuando no puedas más", t:"Si hoy estás cansada, no te regañes. Descansar también es avanzar. Tú no tienes que cargar todo siempre. Hoy solo quiero que te cuides. Y si no te sale, yo te cuido con palabras: despacio, mi amor. Mañana será más amable."},
+      {n:"🩺 Estudiando", h:"Cuando medicina pese", t:"Mi amor… vas a ser internista. Habrá días donde parezca demasiado, pero un día lo vas a mirar atrás y vas a decir: lo logré. Y yo voy a estar ahí, orgulloso, feliz, amándote. Hoy solo sigue un paso."}
+    ];
+    const emotionGrid = document.getElementById('emotionGrid');
+    emotionGrid.innerHTML = emotions.map(e=>`
+      <div class="emotion">
+        <div class="name">${e.n}</div>
+        <div class="hint">${e.h}</div>
+        <div class="text">${e.t}</div>
+      </div>
+    `).join("");
+    document.querySelectorAll('.emotion').forEach(el => el.addEventListener('click', () => el.classList.toggle('open')));
+
+    // Letters
+    const lettersData = [
+      {s:"Carta 1 — “Mi princesa”", b:"💌 abrir", t:"Mireya… mi princesa… si estás leyendo esto, quiero que lo sientas: te amo con calma. Te amo con intención. Te amo como se ama lo que se cuida. Yo no quiero que el amor te duela; quiero que el amor te sostenga. Y yo quiero ser ese lugar seguro para ti."},
+      {s:"Carta 2 — “Para tus noches”", b:"🌙 abrir", t:"Mi niña hermosa… si esto te agarró en la noche, ven. Respira. No pelees con tus pensamientos. Déjalos pasar como nubes. Y quédate con esto: yo estoy contigo. Te beso la frente. Te abrazo en silencio. Y te repito: descansa, mi amor… no estás sola."},
+      {s:"Carta 3 — “Orgullo”", b:"🩺 abrir", t:"Mi amor… admiro tu sueño. Admiro tu disciplina. Admiro tu corazón. Tú quieres ser internista y yo sé que lo vas a lograr porque tú no solo sueñas: tú trabajas. Y cuando el camino se ponga pesado, acuérdate de esto: tu esfuerzo no es invisible. Yo lo veo. Yo lo aplaudo. Yo estoy orgulloso de ti."},
+      {s:"Carta 4 — “Home”", b:"🎵 abrir", t:"Si hoy escuchaste Home y se te apretó tantito el corazón, quédate aquí. Hogar no es un lugar, hogar es una persona. Y tú eres mi hogar, Mireya. Tu voz, tu forma de ser, tu existencia. Yo quiero construir un amor que se sienta así: como llegar a casa."},
+      {s:"Carta 5 — “Cuando te sientas insuficiente”", b:"✨ abrir", t:"Mi princesita… si hoy te sientes insuficiente, no te juzgues como si fueras tu peor día. Tú eres mucho más. Eres tu intención. Tu esfuerzo. Tu corazón. Y yo te amo también en lo incompleto. No tienes que ganarte mi amor. Ya lo tienes."},
+      {s:"Carta 6 — “Si extrañas demasiado”", b:"❤️ abrir", t:"Mi amor… si extrañas demasiado, no lo escondas. Extrañar también es amor. Ven y respira conmigo. Imagíname cerquita. Te tomo de la mano. Y te digo: esto va a valer la pena. Y mientras tanto, yo sigo buscándote en detalles, para que no te sientas sola."}
+    ];
+    const letters = document.getElementById('letters');
+    letters.innerHTML = lettersData.map(l=>`
+      <details class="letter">
+        <summary>${l.s}<span class="seal">${l.b}</span></summary>
+        <div class="divider"></div>
+        <p>${l.t}</p>
+      </details>
+    `).join("");
+
+    document.getElementById('openAllLetters').addEventListener('click', () => {
+      const ds = document.querySelectorAll('details.letter');
+      const allOpen = Array.from(ds).every(d => d.open);
+      ds.forEach(d => d.open = !allOpen);
+      showToast(allOpen ? "💌 Cerré las cartas" : "💌 Abrí las cartas");
+    });
+
+    // Jars
+    const jars = {
+      motivos: [
+        "Te amo porque contigo lo simple se vuelve especial.",
+        "Te amo porque tu mente es brillante y tu corazón es bonito.",
+        "Te amo porque me inspiras sin pedírmelo.",
+        "Te amo porque tu risa me da paz.",
+        "Te amo porque incluso cansada, sigues siendo luz.",
+        "Te amo porque tu sueño es enorme y tú también.",
+        "Te amo porque eres hogar para mí.",
+        "Te amo porque existes… y eso ya es un regalo."
+      ],
+      calma: [
+        "Respira, mi amor… no tienes que resolverlo todo hoy. Solo un paso.",
+        "Si el pecho aprieta, vuelve al ahora. Estás a salvo.",
+        "Tu ansiedad no es tu verdad. Solo es una ola. Y va a pasar.",
+        "Suave, princesita… te abrazo con palabras hasta que descanses.",
+        "Hoy te toca ser amable contigo. Yo te acompaño."
+      ],
+      orgullo: [
+        "Vas a ser internista. Lo siento como certeza.",
+        "Tu esfuerzo está construyendo un futuro enorme. No te sueltes.",
+        "Si hoy te costó, igual avanzaste. Eso también vale.",
+        "Eres capaz. Eres constante. Eres brillante.",
+        "Te admiro. Y amarte me hace sentir orgulloso."
+      ],
+      sonrisas: [
+        "Hoy te toca una sonrisa chiquita: por existir, por ser tú, por seguir.",
+        "Mi princesita… si nadie te lo dijo hoy: lo estás haciendo bien.",
+        "Una gerbera morada para tu corazón: 🌸💜",
+        "Te mando un abrazo lento y un beso en la frente.",
+        "Eres preciosa. No por “perfecta”… por real."
+      ]
+    };
+    document.querySelectorAll('[data-jar]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-jar');
+        document.getElementById('out-' + key).textContent = "✨ " + pick(jars[key]);
+      });
+    });
+
+    // Garden
+    const gardenMsgs = [
+      "Florece esto: “mi amor te cuida incluso en silencio” 💜",
+      "Florece esto: “tu sonrisa es mi lugar favorito” 🌸",
+      "Florece esto: “hogar eres tú” 🏡",
+      "Florece esto: “estoy orgulloso de ti” 🩺",
+      "Florece esto: “mi princesita, aquí estoy” ✨",
+      "Florece esto: “vamos despacio, pero juntos” 🤍",
+      "Florece esto: “te amo con intención” 💜",
+      "Florece esto: “si hoy te cuesta, yo te acompaño” 🫶",
+    ];
+    const seedBtn = document.getElementById('seedBtn');
+    const sprout = document.getElementById('sprout');
+    const gardenMsg = document.getElementById('gardenMsg');
+    seedBtn.addEventListener('click', () => {
+      sprout.classList.remove('show'); void sprout.offsetWidth; sprout.classList.add('show');
+      gardenMsg.textContent = pick(gardenMsgs);
+      showToast("🌱 Plantaste una semilla… y floreció algo bonito");
+    });
+
+    // Gift / Surprise
+    const gifts = [
+`Mireya, mi amor…
+
+Si hoy te sientes cansada, no te regañes.
+No tienes que ser fuerte todo el tiempo.
+Yo quiero ser descanso para ti, aunque sea con palabras.
+
+Respira lento.
+Y acuérdate:
+tú no estás “atrás”.
+Tú estás en proceso.
+Y tu proceso es hermoso.
+
+Te amo, mi princesita.`,
+`Mi niña…
+
+Si hoy el mundo se siente raro
+y tú no sabes ni por qué,
+ven aquí.
+
+Yo no te pido explicaciones.
+Yo solo te abrazo.
+Y te digo:
+“estoy contigo, Mireya”.
+
+No estás sola.`,
+`Mi amor…
+
+Si alguna vez dudas de ti,
+yo te presto mis ojos:
+yo veo una mujer increíble.
+Capaz.
+Brillante.
+Hermosa por dentro.
+
+Tu sueño sí va a pasar,
+paso a paso.
+
+Estoy orgulloso de ti.`,
+`Princesita…
+
+Te amo con calma.
+Te amo con intención.
+Te amo bonito.
+
+No te exijo.
+No te aprieto.
+No te acelero.
+
+Solo te acompaño,
+y me quedo.`
+    ];
+
+    document.getElementById('openGift').addEventListener('click', () => {
+      openModal("🎁 Un mensaje para tu corazón 💜", pick(gifts));
+    });
+
+    // Random poem modal
+    document.getElementById('randomPoem').addEventListener('click', () => {
+      const p = pick(poems);
+      showToast(`✨ Poema para ti: ${p.t} 💜`);
+      document.getElementById('poemario').scrollIntoView({behavior:'smooth', block:'start'});
+      openModal(p.t, p.l);
+    });
+
+    // Open poem modal by clicking any poem
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.poem');
+      if(!card) return;
+      const idx = Array.from(document.querySelectorAll('.poem')).indexOf(card);
+      if(idx >= 0) openModal(poems[idx].t, poems[idx].l);
+    });
+  </script>
+</body>
+</html>
